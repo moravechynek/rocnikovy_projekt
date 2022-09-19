@@ -15,6 +15,19 @@ Spočítá kolik slov z textu je pozitivních a kolik negativních na základě 
 
 ## Naive Bayes
 
+Vyžaduje předem označené texty.
+
 Statistický algoritmus, který vynásobí pravděpodobnosti, že jsou slova pozitivní nebo negativní. (je nutné každě slovo jednou připsat do celého souboru dat, aby se nenásobilo nulou)
 
 Text ohodnotí jako pozitivní nebo negativní podle toho, která pravděpodobnost je vyšší.
+
+## Neuronové sítě
+
+Vyžaduje předem označené texty.
+
+https://developers.google.com/machine-learning/guides/text-classification/
+
+1) Rozdělení textu (na slova, dvojice slov ...)
+2) Převést slova na čísla (číslo nebo vektor)
+3) Prozatím black box
+4) Softmax funkce, která převede čísla na pravděpodobnosti
