@@ -31,3 +31,7 @@ https://developers.google.com/machine-learning/guides/text-classification/
 2) Převést slova na čísla (číslo nebo vektor)
 3) Prozatím black box
 4) Softmax funkce, která převede čísla na pravděpodobnosti
+
+## Technologie
+
+Python - programovací jazyk s největší podporou pro strojové učení a datovou analýzu
