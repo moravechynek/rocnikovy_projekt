@@ -9,7 +9,7 @@ Stáhnout data z http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz 
 
 | Metrika                      | Hodnota       |
 | ---------------------------- | ------------- |
-| Počet recenzí                | 50000         |
+| Počet recenzí                | 25000         |
 | Počet tříd                   | 2             |
-| Počet recenzí ve třídě       | 25000         |
-| Medián počtu slov v recenzi  | 173           |
+| Počet recenzí ve třídě       | 12500         |
+| Medián počtu slov v recenzi  | 174           |
