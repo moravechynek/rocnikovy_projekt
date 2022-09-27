@@ -7,6 +7,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from tabulate import tabulate
 import matplotlib.pyplot as plt
 
+from vectorize import ngram_vectorize
+
 def load_dataset(data_path, seed=123):
     """Loads the Imdb movie reviews sentiment analysis dataset.
     # Arguments
@@ -35,8 +37,7 @@ def load_dataset(data_path, seed=123):
                     with open(os.path.join(train_path, fname)) as f:
                         train_texts.append(f.read())
                 except:
-                    #print('Warning: you are using windows')
-                    pass
+                    print(fname)
                 train_labels.append(0 if category == 'neg' else 1)
 
     # Load the validation data.
@@ -50,7 +51,7 @@ def load_dataset(data_path, seed=123):
                     with open(os.path.join(test_path, fname)) as f:
                         test_texts.append(f.read())
                 except:
-                    pass
+                    print(fname)
                 test_labels.append(0 if category == 'neg' else 1)
 
     # Shuffle the training data and labels.
@@ -150,3 +151,6 @@ print(tabulate(table))
 
 plot_frequency_distribution_of_ngrams(data[0][0])
 plot_sample_length_distribution(data[0][0])
+
+print('Vectorizing...')
+ngram_vectorize(data[0][0],data[0][1],data[1][0])
