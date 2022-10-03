@@ -8,6 +8,7 @@ from tabulate import tabulate
 import matplotlib.pyplot as plt
 
 from vectorize import ngram_vectorize
+from utils import chars
 
 def load_dataset(data_path, seed=123):
     """Loads the Imdb movie reviews sentiment analysis dataset.
@@ -33,11 +34,8 @@ def load_dataset(data_path, seed=123):
         train_path = os.path.join(imdb_data_path, 'train', category)
         for fname in sorted(os.listdir(train_path)):
             if fname.endswith('.txt'):
-                try:
-                    with open(os.path.join(train_path, fname)) as f:
-                        train_texts.append(f.read())
-                except:
-                    print(fname)
+                with open(os.path.join(train_path, fname)) as f:
+                    train_texts.append(f.read())
                 train_labels.append(0 if category == 'neg' else 1)
 
     # Load the validation data.
@@ -47,11 +45,8 @@ def load_dataset(data_path, seed=123):
         test_path = os.path.join(imdb_data_path, 'test', category)
         for fname in sorted(os.listdir(test_path)):
             if fname.endswith('.txt'):
-                try:
-                    with open(os.path.join(test_path, fname)) as f:
-                        test_texts.append(f.read())
-                except:
-                    print(fname)
+                with open(os.path.join(test_path, fname)) as f:
+                    test_texts.append(f.read())
                 test_labels.append(0 if category == 'neg' else 1)
 
     # Shuffle the training data and labels.
@@ -137,7 +132,7 @@ def plot_sample_length_distribution(sample_texts):
 print("Loading the dataset...")
 data = load_dataset(os.getcwd())
 
-words_per_sample = get_num_words_per_sample(data[0][0] + data[1][0])
+"""words_per_sample = get_num_words_per_sample(data[0][0] + data[1][0])
 
 classes = ['pos','neg']
 
@@ -154,3 +149,7 @@ plot_sample_length_distribution(data[0][0])
 
 print('Vectorizing...')
 ngram_vectorize(data[0][0],data[0][1],data[1][0])
+
+
+pos_train_10327_7 = chars('aclImdb/train/pos/10327_7.txt')
+print(pos_train_10327_7)"""
