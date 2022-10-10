@@ -8,7 +8,7 @@ from tabulate import tabulate
 import matplotlib.pyplot as plt
 
 from vectorize import ngram_vectorize
-from utils import chars
+from model import mlp_model, train_ngram_model
 
 def load_dataset(data_path, seed=123):
     """Loads the Imdb movie reviews sentiment analysis dataset.
@@ -132,7 +132,7 @@ def plot_sample_length_distribution(sample_texts):
 print("Loading the dataset...")
 data = load_dataset(os.getcwd())
 
-"""words_per_sample = get_num_words_per_sample(data[0][0] + data[1][0])
+words_per_sample = get_num_words_per_sample(data[0][0] + data[1][0])
 
 classes = ['pos','neg']
 
@@ -147,9 +147,13 @@ print(tabulate(table))
 plot_frequency_distribution_of_ngrams(data[0][0])
 plot_sample_length_distribution(data[0][0])
 
-print('Vectorizing...')
-ngram_vectorize(data[0][0],data[0][1],data[1][0])
+"""print('Vectorizing...')
+vector = ngram_vectorize(data[0][0],data[0][1],data[1][0])
 
-
-pos_train_10327_7 = chars('aclImdb/train/pos/10327_7.txt')
-print(pos_train_10327_7)"""
+print('Modeling...')
+mlp_model(layers=2,
+          units=32,
+          dropout_rate=0.2,
+          input_shape=vector,
+          num_classes=2
+)"""

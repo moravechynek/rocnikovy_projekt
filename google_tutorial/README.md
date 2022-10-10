@@ -12,12 +12,21 @@ Stáhnout data z http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz 
 | Počet recenzí                | 25000         |
 | Počet tříd                   | 2             |
 | Počet recenzí ve třídě       | 12500         |
-| Medián počtu slov v recenzi  | 174           |
+| Medián počtu slov v recenzi  | 173           |
 
-### Chyby
-OS Windows nedekóduje tyto soubory (vyřešeno):
+## Grafy
 
-<details><summary>tabulka</summary>
+![This is an image](/google_tutorial/imgs/Figure_1.png)
+![This is an image](/google_tutorial/imgs/Figure_2.png)
+
+## Chyby
+
+Vektory mají nesprávný datový typ
+
+`TypeError: Dimension value must be integer or None or have an __index__ method, got value '<25000x20000 sparse matrix of type '<class 'numpy.int32'>'
+        with 3482050 stored elements in Compressed Sparse Row format>' with type '<class 'scipy.sparse._csr.csr_matrix'>'`
+
+<details><summary>OS Windows nedekóduje tyto soubory (vyřešeno):</summary>
 
 | /train/pos/ | /train/neg | /test/pos/  | /test/neg   |
 | ----------- | ---------- | ----------- |------------ |

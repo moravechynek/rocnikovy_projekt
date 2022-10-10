@@ -35,7 +35,7 @@ def ngram_vectorize(train_texts, train_labels, val_texts):
     # Create keyword arguments to pass to the 'tf-idf' vectorizer.
     kwargs = {
             'ngram_range': NGRAM_RANGE,  # Use 1-grams + 2-grams.
-            'dtype': 'int32',
+            'dtype': 'int32',#int32
             'strip_accents': 'unicode',
             'decode_error': 'replace',
             'analyzer': TOKEN_MODE,  # Split text into word tokens.
@@ -55,6 +55,6 @@ def ngram_vectorize(train_texts, train_labels, val_texts):
     x_train = selector.transform(x_train)
     x_val = selector.transform(x_val)
 
-    x_train = x_train.astype('float32')
-    x_val = x_val.astype('float32')
+    x_train = x_train.astype('int_') #float32
+    x_val = x_val.astype('int_') #float32
     return x_train, x_val
