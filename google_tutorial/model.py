@@ -15,9 +15,9 @@ def _get_last_layer_units_and_activation(num_classes):
         units = num_classes
     return units, activation
 
-from tensorflow.python.keras import models
-from tensorflow.python.keras.layers import Dense
-from tensorflow.python.keras.layers import Dropout
+from keras import models #tensorflow.python.keras
+from keras.layers import Dense
+from keras.layers import Dropout
 
 def mlp_model(layers, units, dropout_rate, input_shape, num_classes):
     """Creates an instance of a multi-layer perceptron model.

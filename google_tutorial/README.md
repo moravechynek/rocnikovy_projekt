@@ -5,6 +5,12 @@ https://developers.google.com/machine-learning/guides/text-classification/
 ### Požadavky:
 Stáhnout data z http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz (80.2MB komprimované, 210MB nekomprimované)
 
+### Možnost A
+data -> vektor x trénování neuronové sítě x model
+
+### Možnost B
+data -> vektor -> trénování neuronové sítě ? model
+
 ## Statistika dat
 
 | Metrika                      | Hodnota       |
