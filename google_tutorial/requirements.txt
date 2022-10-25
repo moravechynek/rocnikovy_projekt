@@ -1,5 +1,6 @@
 matplotlib==3.5.1
 numpy==1.21.5
+progress==1.6
 scikit-learn==0.24.2
 tabulate==0.8.10
 tensorflow==2.8.0

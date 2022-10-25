@@ -7,6 +7,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 from tabulate import tabulate
 import matplotlib.pyplot as plt
+from progress.bar import Bar
 
 from vectorize import ngram_vectorize, sequence_vectorize
 from model import mlp_model, train_ngram_model
@@ -16,7 +17,7 @@ def load_csv(file):
     data = []
     with open(file) as f:
         for row in f.readlines():
-            data.append(row)
+            data.append(row.split(';'))
     return data
 
 def load_dataset(data_path, seed=123):
@@ -36,6 +37,8 @@ def load_dataset(data_path, seed=123):
     """
     imdb_data_path = os.path.join(data_path, 'aclImdb')
 
+    bar = Bar('Loading the dataset...', max = 50000)
+            
     # Load the training data
     train_texts = []
     train_labels = []
@@ -43,9 +46,10 @@ def load_dataset(data_path, seed=123):
         train_path = os.path.join(imdb_data_path, 'train', category)
         for fname in sorted(os.listdir(train_path)):
             if fname.endswith('.txt'):
+                bar.next()
                 with open(os.path.join(train_path, fname)) as f:
                     train_texts.append(f.read())
-                train_labels.append(0 if category == 'neg' else 1)
+                train_labels.append(0 if category == 'neg' else 1)             
 
     # Load the validation data.
     test_texts = []
@@ -54,10 +58,11 @@ def load_dataset(data_path, seed=123):
         test_path = os.path.join(imdb_data_path, 'test', category)
         for fname in sorted(os.listdir(test_path)):
             if fname.endswith('.txt'):
+                bar.next()
                 with open(os.path.join(test_path, fname)) as f:
                     test_texts.append(f.read())
-                test_labels.append(0 if category == 'neg' else 1)
-
+                test_labels.append(0 if category == 'neg' else 1)       
+    
     # Shuffle the training data and labels.
     random.seed(seed)
     random.shuffle(train_texts)
@@ -146,8 +151,8 @@ def plot_accuracy(epochs, val_acc):
 
     plt.show()
 
-print("Loading the dataset...")
-data = load_csv('IMDBdataset.csv') #load_dataset(os.getcwd())
+data = load_dataset(os.getcwd(),25000) #load_csv('IMDBdataset.csv')
+print()
 """model = load_model('./rotten_tomatoes_sepcnn_model.h5')
 examples = [
   "The movie was great!",
@@ -162,9 +167,9 @@ if len(sys.argv) - 1 == 1:
         words_per_sample = get_num_words_per_sample(data[0][0] + data[1][0])
 
         table = [['Metric name','Metric value'],
-            ['Number of samples',len(data[0][0])],
-            ['Number of classes',len(2)],
-            ['Number of samples per class',len(data[0][0])/2],
+            ['Number of samples',len(data[0][0])+len(data[1][0])],
+            ['Number of classes',2],
+            ['Number of samples per class',(len(data[0][0])+len(data[1][0]))/2],
             ['Number of words per sample',words_per_sample]]
 
         print(tabulate(table))
