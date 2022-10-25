@@ -29,8 +29,14 @@ https://developers.google.com/machine-learning/guides/text-classification/
 
 1) Rozdělení textu (na slova, dvojice slov ...)
 2) Převést slova na čísla (číslo nebo vektor)
-3) Prozatím black box
+3) Na sebe navazující vrstvy
 4) Softmax funkce, která převede čísla na pravděpodobnosti
+
+Diagramy neuronové sítě
+
+https://towardsdatascience.com/how-to-easily-draw-neural-network-architecture-diagrams-a6b6138ed875
+- YOLO v1 architecture
+- VGG16 architecture
 
 ## Technologie
 

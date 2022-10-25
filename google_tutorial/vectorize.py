@@ -1,6 +1,3 @@
-import tensorflow as tf
-import numpy as np
-
 from keras.preprocessing import sequence # tensorflow.python.keras.preprocessing
 from keras.preprocessing import text
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -80,12 +77,11 @@ def sequence_vectorize(train_texts, val_texts):
         x_train, x_val, word_index: vectorized training and validation
             texts and word index dictionary.
     """
-    # Create vocabulary with training texts.
-    tokenizer = text.Tokenizer(num_words=TOP_K)
-    tokenizer.fit_on_texts(train_texts)
+    tokenizer = text.Tokenizer(num_words=TOP_K) # https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/text/Tokenizer
+    tokenizer.fit_on_texts(train_texts) # https://github.com/keras-team/keras/blob/v2.10.0/keras/preprocessing/text.py#L269-L327
 
     # Vectorize training and validation texts.
-    x_train = tokenizer.texts_to_sequences(train_texts)
+    x_train = tokenizer.texts_to_sequences(train_texts) # https://github.com/keras-team/keras/blob/v2.10.0/keras/preprocessing/text.py#L345-L357
     x_val = tokenizer.texts_to_sequences(val_texts)
 
     # Get max sequence length.

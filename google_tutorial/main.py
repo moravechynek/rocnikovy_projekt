@@ -1,4 +1,5 @@
 import os
+import sys
 import random
 
 import numpy as np
@@ -10,6 +11,13 @@ import matplotlib.pyplot as plt
 from vectorize import ngram_vectorize, sequence_vectorize
 from model import mlp_model, train_ngram_model
 from sequence_model import train_sequence_model
+
+def load_csv(file):
+    data = []
+    with open(file) as f:
+        for row in f.readlines():
+            data.append(row)
+    return data
 
 def load_dataset(data_path, seed=123):
     """Loads the Imdb movie reviews sentiment analysis dataset.
@@ -55,7 +63,6 @@ def load_dataset(data_path, seed=123):
     random.shuffle(train_texts)
     random.seed(seed)
     random.shuffle(train_labels)
-
     return ((train_texts, np.array(train_labels)),
             (test_texts, np.array(test_labels)))
 
@@ -130,41 +137,54 @@ def plot_sample_length_distribution(sample_texts):
     plt.title('Sample length distribution')
     plt.show()
 
+def plot_accuracy(epochs, val_acc):
+    plt.plot(epochs, val_acc, 'bo', label='Validation acc')
+    plt.title('Validation accuracy')
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy')
+    plt.legend(loc='lower right')
+
+    plt.show()
+
 print("Loading the dataset...")
-data = load_dataset(os.getcwd())
+data = load_csv('IMDBdataset.csv') #load_dataset(os.getcwd())
+"""model = load_model('./rotten_tomatoes_sepcnn_model.h5')
+examples = [
+  "The movie was great!",
+  "The movie was okay.",
+  "The movie was terrible..."
+]
 
-"""words_per_sample = get_num_words_per_sample(data[0][0] + data[1][0])
+print(model.predict(examples))"""
 
-classes = ['pos','neg']
+if len(sys.argv) - 1 == 1:
+    if sys.argv[1] == 'stat':
+        words_per_sample = get_num_words_per_sample(data[0][0] + data[1][0])
 
-table = [['Metric name','Metric value'],
-    ['Number of samples',len(data[0][0])],
-    ['Number of classes',len(classes)],
-    ['Number of samples per class',len(data[0][0])/2],
-    ['Number of words per sample',words_per_sample]]
+        table = [['Metric name','Metric value'],
+            ['Number of samples',len(data[0][0])],
+            ['Number of classes',len(2)],
+            ['Number of samples per class',len(data[0][0])/2],
+            ['Number of words per sample',words_per_sample]]
 
-print(tabulate(table))
+        print(tabulate(table))
 
-plot_frequency_distribution_of_ngrams(data[0][0])
-plot_sample_length_distribution(data[0][0])"""
+        plot_frequency_distribution_of_ngrams(data[0][0])
+        plot_sample_length_distribution(data[0][0])
+    if sys.argv[1] == 'sequential':
+        print('Training...')
+        train = train_sequence_model(
+            data=data,
+            epochs=2,
+            batch_size=512
+        )
+    if sys.argv[1] == 'ngram':
+        vector = ngram_vectorize(data[0][0],data[0][1],data[1][0])
+        mlp_model(layers=2,
+                units=32,
+                dropout_rate=0.2,
+                input_shape=vector,
+                num_classes=2
+        )
 
-print('Vectorizing...')
-
-#vector = ngram_vectorize(data[0][0],data[0][1],data[1][0])
-vector = sequence_vectorize(data[0][0],data[1][0])
-
-print('Training...')
-
-train_sequence_model(
-    data=data,
-    batch_size=512
-)
-
-print('Modeling...')
-
-"""mlp_model(layers=2,
-          units=32,
-          dropout_rate=0.2,
-          input_shape=vector,
-          num_classes=2
-)"""
+#plot_accuracy(epochs=2,val_acc=train[0])

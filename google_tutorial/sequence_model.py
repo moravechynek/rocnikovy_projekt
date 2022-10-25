@@ -1,4 +1,5 @@
 import tensorflow as tf
+from matplotlib import pyplot as plt
 
 from keras import models #tensorflow.python.keras
 from keras import initializers #tensorflow.python.keras
@@ -130,7 +131,7 @@ def sepcnn_model(blocks,
 
 def train_sequence_model(data,
                          learning_rate=1e-3,
-                         epochs=1,# 1000
+                         epochs=1000,
                          batch_size=128,
                          blocks=2,
                          filters=64,
@@ -179,14 +180,14 @@ def train_sequence_model(data,
 
     # Create model instance.
     model = sepcnn_model(blocks=blocks,
-                                     filters=filters,
-                                     kernel_size=kernel_size,
-                                     embedding_dim=embedding_dim,
-                                     dropout_rate=dropout_rate,
-                                     pool_size=pool_size,
-                                     input_shape=x_train.shape[1:],
-                                     num_classes=num_classes,
-                                     num_features=num_features)
+                        filters=filters,
+                        kernel_size=kernel_size,
+                        embedding_dim=embedding_dim,
+                        dropout_rate=dropout_rate,
+                        pool_size=pool_size,
+                        input_shape=x_train.shape[1:],
+                        num_classes=num_classes,
+                        num_features=num_features)
 
     # Compile model with learning parameters.
     if num_classes == 2:
@@ -215,7 +216,19 @@ def train_sequence_model(data,
     history = history.history
     print('Validation accuracy: {acc}, loss: {loss}'.format(
             acc=history['val_acc'][-1], loss=history['val_loss'][-1]))
+    #dict_keys(['loss', 'acc', 'val_loss', 'val_acc'])
+
+    f = open('accuracy.txt','a')
+    f.write(str(history['val_acc'][-1]))
+    f.close()
+
 
     # Save model.
     model.save('rotten_tomatoes_sepcnn_model.h5')
+
+    #print(model.summary())
+
+    """from keras.utils import plot_model
+    plot_model(model,to_file='sequential_model.png',show_shapes=False)"""
+
     return history['val_acc'][-1], history['val_loss'][-1]

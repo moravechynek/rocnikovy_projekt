@@ -1,0 +1,31 @@
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ embedding (Embedding)       (None, 500, 200)          4000000   
+
+ dropout (Dropout)           (None, 500, 200)          0
+
+ separable_conv1d (Separable  (None, 500, 64)          13464
+ Conv1D)
+
+ separable_conv1d_1 (Separab  (None, 500, 64)          4352
+ leConv1D)
+
+ max_pooling1d (MaxPooling1D  (None, 166, 64)          0
+ )
+
+ separable_conv1d_2 (Separab  (None, 166, 128)         8512
+ leConv1D)
+
+ separable_conv1d_3 (Separab  (None, 166, 128)         16896
+ leConv1D)
+
+ global_average_pooling1d (G  (None, 128)              0
+ lobalAveragePooling1D)
+
+ dropout_1 (Dropout)         (None, 128)               0
+
+ dense (Dense)               (None, 1)                 129       
+
+=================================================================
